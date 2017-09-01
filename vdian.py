@@ -112,10 +112,14 @@ def parse(file, vdian, a_vdian):
 			continue
 		
 		# Z: summary 1
-		# AB: summary 2
+		# X: summary 2
 		note_1 = sheet['Z' + str(i)].value
-		note_2 = sheet['AB' + str(i)].value
-		note = note_1 + ' ' + note_2
+		#note_2 = sheet['AB' + str(i)].value
+		note_2 = sheet['X' + str(i)].value
+		if note_1 is None:
+			note = note_2
+		else:
+			note = note_1 + ' ' + note_2
 		
 		for j in range(0, len(p_name_a)):
 			p_name = p_name_a[j]
