@@ -70,47 +70,47 @@ def parse(file, vdian, a_vdian):
 			ii = ii + 1
 		pay_date = sheet['H' + str(i-ii)].value
 		
-		# X: name
+		# W: name
+		ii = 0
+		while (sheet['W' + str(i-ii)].value is None):
+			ii = ii + 1
+		name = sheet['W' + str(i-ii)].value
+		
+		# X: phone
 		ii = 0
 		while (sheet['X' + str(i-ii)].value is None):
 			ii = ii + 1
-		name = sheet['X' + str(i-ii)].value
-		
-		# Y: phone
-		ii = 0
-		while (sheet['Y' + str(i-ii)].value is None):
-			ii = ii + 1
-		phone = sheet['Y' + str(i-ii)].value
+		phone = sheet['X' + str(i-ii)].value
 		
 		# P: price
 		price = sheet['P' + str(i)].value
 		
-		# S: refund status
-		refund = sheet['S' + str(i)].value
+		# R: refund status
+		refund = sheet['R' + str(i)].value
 				
-		# Z: province
+		# Y: province
+		ii = 0
+		while (sheet['Y' + str(i-ii)].value is None):
+			ii = ii + 1
+		province = sheet['Y' + str(i-ii)].value
+		
+		# Z: city
 		ii = 0
 		while (sheet['Z' + str(i-ii)].value is None):
 			ii = ii + 1
-		province = sheet['Z' + str(i-ii)].value
+		city = sheet['Z' + str(i-ii)].value
 		
-		# AA: city
+		# AA: district
 		ii = 0
 		while (sheet['AA' + str(i-ii)].value is None):
 			ii = ii + 1
-		city = sheet['AA' + str(i-ii)].value
+		district = sheet['AA' + str(i-ii)].value
 		
-		# AB: district
+		# AB: address
 		ii = 0
 		while (sheet['AB' + str(i-ii)].value is None):
 			ii = ii + 1
-		district = sheet['AB' + str(i-ii)].value
-		
-		# AC: address
-		ii = 0
-		while (sheet['AC' + str(i-ii)].value is None):
-			ii = ii + 1
-		addr = sheet['AC' + str(i-ii)].value
+		addr = sheet['AB' + str(i-ii)].value
 		
 		# E: status
 		ii = 0
@@ -128,13 +128,16 @@ def parse(file, vdian, a_vdian):
 		# Z: summary 1
 		# X: summary 2
 		ii = 0
+		#while (sheet['AP' + str(i-ii)].value is None):
 		while (sheet['E' + str(i-ii)].value is None):
 			ii = ii + 1
-		note_1 = sheet['AQ' + str(i-ii)].value
+		note_1 = sheet['AP' + str(i-ii)].value
+		#note_2 = sheet['AB' + str(i)].value
 		ii = 0
+		#while (sheet['AN' + str(i-ii)].value is None):
 		while (sheet['E' + str(i-ii)].value is None):
 			ii = ii + 1
-		note_2 = sheet['AO' + str(i-ii)].value
+		note_2 = sheet['AN' + str(i-ii)].value
 		if note_1 is None:
 			note_1 = ""
 		if note_2 is None:
@@ -142,8 +145,8 @@ def parse(file, vdian, a_vdian):
 		note = note_1 + ' ' + note_2
 		
 		if ("退款" in refund) and (not "退款关闭" in refund):
-			# T: refund money
-			refund_money = sheet['T' + str(i)].value
+			# S: refund money
+			refund_money = sheet['S' + str(i)].value
 
 			# B: total money
 			ii = 0
