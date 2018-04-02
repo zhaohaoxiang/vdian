@@ -262,6 +262,7 @@ def main():
 			if file.lower().endswith('.xlsx') and not file.lower().startswith('~'):
 				file_num = file_num + 1
 				process(file, a_vdian)
+				os.remove(file)
 	else:
 		file = args.excel_file
 		process(file, a_vdian)
