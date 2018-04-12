@@ -47,56 +47,76 @@ def parse(file, vdian, a_vdian):
 	
 	for i in range(2, row_count + 1):
 	
-		# F: description
+		# K: description
 		ii = 0
-		p_name = sheet['F' + str(i-ii)].value
-		if not (sheet['G' + str(i)].value is None):
-			p_name = p_name + sheet['G' + str(i)].value
+		while (sheet['K' + str(i-ii)].value is None):
+			ii = ii + 1
+		p_name = sheet['K' + str(i-ii)].value
+		if not (sheet['L' + str(i)].value is None):
+			p_name = p_name + sheet['L' + str(i)].value
 		
-		# I: buy number
-		num = sheet['I' + str(i)].value
+		# O: buy number
+		num = sheet['O' + str(i)].value
 		
 		# A: order ID
 		ii = 0
+		while (sheet['A' + str(i-ii)].value is None):
+			ii = ii + 1
 		id = sheet['A' + str(i-ii)].value
 		
-		# E: pay date
+		# H: pay date
 		ii = 0
-		pay_date = sheet['E' + str(i-ii)].value
+		while (sheet['H' + str(i-ii)].value is None):
+			ii = ii + 1
+		pay_date = sheet['H' + str(i-ii)].value
 		
-		# R: name
+		# X: name
 		ii = 0
-		name = sheet['R' + str(i-ii)].value
+		while (sheet['X' + str(i-ii)].value is None):
+			ii = ii + 1
+		name = sheet['X' + str(i-ii)].value
 		
-		# S: phone
+		# Y: phone
 		ii = 0
-		phone = sheet['S' + str(i-ii)].value
+		while (sheet['Y' + str(i-ii)].value is None):
+			ii = ii + 1
+		phone = sheet['Y' + str(i-ii)].value
 		
-		# J: price
-		price = sheet['J' + str(i)].value
+		# P: price
+		price = sheet['P' + str(i)].value
 		
-		# M: refund status
-		refund = sheet['M' + str(i)].value
+		# S: refund status
+		refund = sheet['S' + str(i)].value
 				
-		# T: province
+		# Z: province
 		ii = 0
-		province = sheet['T' + str(i-ii)].value
+		while (sheet['Z' + str(i-ii)].value is None):
+			ii = ii + 1
+		province = sheet['Z' + str(i-ii)].value
 		
-		# U: city
+		# AA: city
 		ii = 0
-		city = sheet['U' + str(i-ii)].value
+		while (sheet['AA' + str(i-ii)].value is None):
+			ii = ii + 1
+		city = sheet['AA' + str(i-ii)].value
 		
-		# V: district
+		# AB: district
 		ii = 0
-		district = sheet['V' + str(i-ii)].value
+		while (sheet['AB' + str(i-ii)].value is None):
+			ii = ii + 1
+		district = sheet['AB' + str(i-ii)].value
 		
-		# W: address
+		# AC: address
 		ii = 0
-		addr = sheet['W' + str(i-ii)].value
+		while (sheet['AC' + str(i-ii)].value is None):
+			ii = ii + 1
+		addr = sheet['AC' + str(i-ii)].value
 		
-		# L: status
+		# E: status
 		ii = 0
-		status = sheet['L' + str(i-ii)].value
+		while (sheet['E' + str(i-ii)].value is None):
+			ii = ii + 1
+		status = sheet['E' + str(i-ii)].value
 
 		if (not ('待发货' in status)) and (not args.is_sum):
 			print("[WARNING] " + status + " : " + id + " : " + name + " : " + phone)
@@ -105,12 +125,16 @@ def parse(file, vdian, a_vdian):
 			print("[WARNING] " + status + " : " + id + " : " + name + " : " + phone)
 			continue
 		
-		# Y: summary 1
-		# Z: summary 2
+		# Z: summary 1
+		# X: summary 2
 		ii = 0
-		note_1 = sheet['Y' + str(i-ii)].value
+		while (sheet['E' + str(i-ii)].value is None):
+			ii = ii + 1
+		note_1 = sheet['AQ' + str(i-ii)].value
 		ii = 0
-		note_2 = sheet['Z' + str(i-ii)].value
+		while (sheet['E' + str(i-ii)].value is None):
+			ii = ii + 1
+		note_2 = sheet['AO' + str(i-ii)].value
 		if note_1 is None:
 			note_1 = ""
 		if note_2 is None:
@@ -118,21 +142,37 @@ def parse(file, vdian, a_vdian):
 		note = note_1 + ' ' + note_2
 		
 		if ("退款" in refund) and (not "退款关闭" in refund):
-			# N: refund money
-			refund_money = sheet['N' + str(i)].value
+			# T: refund money
+			refund_money = sheet['T' + str(i)].value
 
-			# total money
-			total_money = float(price) * int(num)
+			# B: total money
+			ii = 0
+			while (sheet['E' + str(i-ii)].value is None):
+				ii = ii + 1
+			total_money = sheet['B' + str(i-ii)].value
 			
-			actual_money = total_money - float(refund_money)
-			actual_num = actual_money / float(price)
-			
-			print("[REFUND] " + status + " : " + id + " : " + name + " : " + phone + " : " + str(total_money) + " - " + str(refund_money) + " - " + str(actual_num))
-			if (int(actual_num) == 0):
+			start = i - ii
+			ii = 1
+			sum_money = float(sheet['P' + str(start)].value) * int(num)
+			#print("[DBG] sum_money " + str(sum_money) + " : num " + str(num) + " : total " + str(sheet['B' + str(start)].value) + " : sum_money " + str(sheet['P' + str(start)].value))
+			while (sheet['E' + str(start+ii)].value is None):
+				sum_money = float(sum_money) + float(sheet['P' + str(start+ii)].value) * int(float(sheet['O' + str(start+ii)].value))
+				ii = ii + 1
+				#print("[DBG] sum_money " + str(sum_money))
+			#print("[DBG] sum_money " + str(sum_money))
+			sum_money = float(sum_money) - float(sheet['P' + str(i)].value) * int(num)
+			sum_money = float(total_money) - float(sum_money)
+
+			print("[REFUND] " + status + " : " + id + " : " + name + " : " + phone + " : " + str(total_money) + " - " + str(sum_money) + " - " + str(refund_money))
+			if (sum_money == refund_money):
 				continue
 			else:
+				actual_num = (float(sum_money) - float(refund_money)) / float(price)
+				#actual_num = int(actual_num)
 				print("[REFUND] Adjust num from " + str(num) + " to " + str(actual_num))
 				num = actual_num
+				if (num == 0):
+					continue
 		
 		if (args.obj is None) or ((not (args.obj is None)) and (args.obj in p_name)):
 			vdian.add_order(p_name, price, id, name, phone, num, province, city, district, addr, note, pay_date)
