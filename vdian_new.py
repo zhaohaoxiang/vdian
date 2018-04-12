@@ -134,7 +134,7 @@ def parse(file, vdian, a_vdian):
 				print("[REFUND] Adjust num from " + str(num) + " to " + str(actual_num))
 				num = actual_num
 		
-		if (args.obj is None) or ((not (args.obj is None)) and (args.obj in p_name)):
+		if (args.obj is None) or (not args.obj.strip()) or ((not (args.obj is None)) and (args.obj in p_name)):
 			vdian.add_order(p_name, price, id, name, phone, num, province, city, district, addr, note, pay_date)
 			a_vdian.add_order(p_name, price, id, name, phone, num, province, city, district, addr, note, pay_date)
 
