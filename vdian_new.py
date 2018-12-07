@@ -110,7 +110,7 @@ def parse(file, vdian, a_vdian):
 		ii = 0
 		note_1 = sheet['Y' + str(i-ii)].value
 		ii = 0
-		note_2 = sheet['Z' + str(i-ii)].value
+		note_2 = sheet['AA' + str(i-ii)].value
 		if note_1 is None:
 			note_1 = ""
 		if note_2 is None:
